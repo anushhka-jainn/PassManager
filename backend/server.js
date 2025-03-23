@@ -1,21 +1,20 @@
-const express = require('express');
-const dotenv = require('dotenv');
+const express = require('express')
+const dotenv = require('dotenv')
 const { MongoClient } = require('mongodb');
-const bodyparser = require('body-parser');
+const bodyparser = require('body-parser')
 const cors = require('cors');
-dotenv.config();
+dotenv.config()
 
 // Connection URL
-const url = process.env.MANGO_URI;
+const url =process.env.MANGO_URI;
 const client = new MongoClient(url);
 
 // Database Name
 const dbName = 'passop';
-
-const app = express();
-
-app.use(bodyparser.json());
-app.use(cors());
+const app = express()
+const port = 3000
+app.use(bodyparser.json())
+app.use(cors())
 
 client.connect();
 
@@ -64,5 +63,6 @@ app.put('/', async (req, res) => {
   }
 });
 
-// Export the app to be used by Vercel
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`);
+});
